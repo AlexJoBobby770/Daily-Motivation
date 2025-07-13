@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Daily Fuel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Daily Fuel</h1>
+
+  <section id="motivation">
+    <h2>What Fueled You Today?</h2>
+    <input type="text" id="motivationInput" placeholder="e.g. Gym PR, Quote, etc." />
+    <button id="addMotivationBtn">Add</button>
+  </section>
+
+  <section id="goals">
+    <h2>Today's Goals</h2>
+    <input type="text" id="goal1" placeholder="Goal 1" />
+    <input type="text" id="goal2" placeholder="Goal 2" />
+    <button id="saveGoalsBtn">Save Goals</button>
+  </section>
+
+  <section id="reflection">
+    <h2>Reflect</h2>
+    <textarea id="reflectionInput" placeholder="One line reflection..."></textarea>
+    <br />
+    <label for="rating">Rate your day:</label>
+    <select id="rating">
+      <option value="1">⭐</option>
+      <option value="2">⭐⭐</option>
+      <option value="3">⭐⭐⭐</option>
+      <option value="4">⭐⭐⭐⭐</option>
+      <option value="5">⭐⭐⭐⭐⭐</option>
+    </select>
+    <button id="submitReflectionBtn">Submit</button>
+  </section>
+
+  <section id="summary">
+    <h1>Today's Summary</h1>
+    <div id="summaryDisplay"></div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
