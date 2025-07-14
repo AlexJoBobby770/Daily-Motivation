@@ -1,0 +1,48 @@
+body {
+  font-family:  sans-serif;
+  background-color: #f7f7f7;
+  padding: 20px;
+  text-align: center;
+}
+
+section {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 700px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px hsla(0, 0%, 0%, 0.895);
+}
+#listItems {
+  list-style: none;
+  padding: 0;
+  width: fit-content; 
+  margin: 0 auto; 
+}
+
+#listItems li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%; 
+}
+input[type="text"],textarea,select {
+  padding: 8px;
+  width: 90%;
+  max-width: 400px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 8px 16px;
+  margin: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+button:hover {
+  background-color: #0056b3;
+}
