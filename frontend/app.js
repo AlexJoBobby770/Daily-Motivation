@@ -3,12 +3,12 @@ function displaySummary() {
     <h3>Motivation</h3>
     <p>${text || "—"}</p>
     <h3>Goals</h3>
-    <ul style="list-style: none;">
+    <ul style="list-style: none;" id="listItems">
     ${goals.map((g, i) =>
              `<li >
             <input type="checkbox" id="goalCheck${i}" ${g.done ? "checked" : ""}>
-            <label for="goalCheck${i}" style="text-decoration: ${g.done ? "line-through" : "none"};">
-            ${g.text}
+            <label for="goalCheck${i}">
+            ${g.text}${g.done ? '✅' : ''}
             </label>
         </li>`).join("")}
     </ul>
