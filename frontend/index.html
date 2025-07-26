@@ -2,46 +2,205 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Daily Fuel</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Daily Fuel ⚡</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700;800&display=swap');
+    
+    body {
+      font-family: 'Nunito', sans-serif;
+    }
+    
+    .title-font {
+      font-family: 'Comfortaa', cursive;
+    }
+    
+    .accent-font {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 20%, #cbd5e1 40%, #ddd6fe 60%, #e0e7ff 80%, #f1f5f9 100%);
+    }
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    
+    .glow {
+      box-shadow: 0 8px 32px rgba(148, 163, 184, 0.15);
+    }
+    
+    .bounce-in {
+      animation: bounceIn 0.6s ease-out;
+    }
+    
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .hover-lift {
+      transition: all 0.3s ease;
+    }
+    
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(255, 192, 203, 0.2);
+    }
+    
+    .soft-text {
+      text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #f8bbd9;
+      box-shadow: 0 0 0 3px rgba(248, 187, 217, 0.2);
+    }
+    
+    .star-rating option {
+      font-size: 18px;
+    }
+  </style>
 </head>
-<body>
-  <h1 id="DailyQuote"></h1>
 
-  <section id="motivation">
-    <h2>What Fueled You Today?</h2>
-    <input type="text" id="motivationInput" placeholder="e.g. Gym PR, Quote, etc." />
-    <button id="addMotivationBtn">Add</button>
-  </section>
+<body class="min-h-screen gradient-bg text-gray-700 overflow-x-hidden">
 
-  <section id="goals">
-    <h2>Today's Goals</h2>
-    <input type="text" id="goal1" placeholder="Goal 1" />
-    <input type="text" id="goal2" placeholder="Goal 2" />
-    <br>
-    <button id="saveGoalsBtn">Save Goals</button>
-  </section>
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-40 -right-40 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
+    <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-yellow-100 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-pulse"></div>
+  </div>
 
-  <section id="reflection">
-    <h2>Reflect</h2>
-    <textarea id="reflectionInput" placeholder="One line reflection..."></textarea>
-    <br />
-    <label for="rating">Rate your day:</label>
-    <select id="rating">
-      <option value="1">⭐</option>
-      <option value="2">⭐⭐</option>
-      <option value="3">⭐⭐⭐</option>
-      <option value="4">⭐⭐⭐⭐</option>
-      <option value="5">⭐⭐⭐⭐⭐</option>
-    </select>
-    <br>
-    <button id="submitReflectionBtn">Submit</button>
-  </section>
+  <div class="relative z-10 max-w-4xl mx-auto p-6">
 
-  <section id="summary">
-    <h1>Today's Summary</h1>
-    <div id="summaryDisplay"></div>
-  </section>
+    <div class="text-center mb-12">
+      <h1 class="text-6xl font-black mb-6 bounce-in">
+        <span class="bg-gradient-to-r from-yellow-400 via-pink-500 to-cyan-400 bg-clip-text text-transparent">
+          Daily Fuel
+        </span>
+        <span class="text-4xl"></span>
+      </h1>
+      <div id="DailyQuote" class="text-xl font-medium neon-text bg-black bg-opacity-20 rounded-2xl p-6 glass max-w-2xl mx-auto"></div>
+    </div>
+
+    <form id="dailyForm" class="space-y-8">
+
+      <section class="glass rounded-3xl p-8 hover-lift glow">
+        <div class="flex items-center mb-6">
+          <div class="text-4xl mr-4"></div>
+          <h2 class="text-2xl font-bold text-gray-700 accent-font">What Inspired You Today?</h2>
+        </div>
+        <input 
+          type="text" 
+          id="motivationInput" 
+          placeholder="e.g. A beautiful sunrise, kind words from a friend, personal breakthrough..."
+          class="w-full p-4 rounded-2xl bg-white bg-opacity-50 border-2 border-pink-200 text-gray-700 placeholder-gray-400 text-lg font-medium"
+        />
+      </section>
+
+      <section class="glass rounded-3xl p-8 hover-lift glow">
+        <div class="flex items-center mb-6">
+          <div class="text-4xl mr-4">🎨</div>
+          <h2 class="text-2xl font-bold text-gray-700 accent-font">Today's Creative Goals</h2>
+        </div>
+        <div class="space-y-4">
+          <input 
+            type="text" 
+            id="goal1" 
+            placeholder="🌿 Goal #1 - Something meaningful to you"
+            class="w-full p-4 rounded-2xl bg-white bg-opacity-50 border-2 border-green-200 text-gray-700 placeholder-gray-400 text-lg font-medium"
+          />
+          <input 
+            type="text" 
+            id="goal2" 
+            placeholder="🌙 Goal #2 - A gentle challenge for yourself"
+            class="w-full p-4 rounded-2xl bg-white bg-opacity-50 border-2 border-blue-200 text-gray-700 placeholder-gray-400 text-lg font-medium"
+          />
+        </div>
+      </section>
+
+      <section class="glass rounded-3xl p-8 hover-lift glow">
+        <div class="flex items-center mb-6">
+          <div class="text-4xl mr-4">💭</div>
+          <h2 class="text-2xl font-bold">Reflect & Rate</h2>
+        </div>
+        <textarea 
+          id="reflectionInput" 
+          placeholder="How did today feel? What did you learn? What's on your mind?"
+          rows="4"
+          class="w-full p-4 rounded-2xl bg-white bg-opacity-10 border-2 border-white border-opacity-20 text-white placeholder-gray-300 text-lg font-medium mb-6 resize-none"
+        ></textarea>
+        
+        <div class="flex items-center space-x-4">
+          <label class="text-lg font-semibold">Rate your day:</label>
+          <select id="rating" class="star-rating bg-white bg-opacity-10 border-2 border-white border-opacity-20 rounded-xl p-3 text-white text-xl font-bold">
+            <option value="1">⭐</option>
+            <option value="2">⭐⭐</option>
+            <option value="3" selected>⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐</option>
+            <option value="5">⭐⭐⭐⭐⭐</option>
+          </select>
+        </div>
+      </section>
+
+      <div class="text-center py-6">
+        <button 
+          type="submit" 
+          id="submitAllBtn"
+          class="bg-gradient-to-r from-rose-200 via-pink-200 to-purple-200 text-gray-700 px-12 py-4 rounded-3xl text-xl font-bold hover:scale-105 transform transition-all duration-300 shadow-lg hover:shadow-pink-200/40 glow title-font"
+        >
+           Save My Day ✨
+        </button>
+      </div>
+    </form>
+
+    <section class="glass rounded-3xl p-8 mt-12 glow">
+      <div class="flex items-center mb-6">
+        <div class="text-4xl mr-4">📖</div>
+        <h1 class="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent title-font">
+          Today's Gentle Summary
+        </h1>
+      </div>
+      <div id="summaryDisplay" class="space-y-6"></div>
+    </section>
+  </div>
+
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add typing animation to quote
+      const quote = document.getElementById('DailyQuote');
+      
+      const inputs = document.querySelectorAll('input, textarea, select');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.style.transform = 'scale(1.02)';
+          this.parentElement.style.transition = 'transform 0.2s ease';
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.style.transform = 'scale(1)';
+        });
+      });
+
+      const submitBtn = document.getElementById('submitAllBtn');
+      submitBtn.addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1.05)';
+          setTimeout(() => {
+            this.style.transform = 'scale(1)';
+          }, 100);
+        }, 100);
+      });
+    });
+  </script>
 
   <script src="app.js"></script>
 </body>
