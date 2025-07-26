@@ -2,45 +2,47 @@ const express = require('express');
 const app = express();
 const PORT = 8000;
 
-const logs = []; // This will hold all logs during runtime
+let summaries = [];
+let quotes = [
+  "You can do it!",
+  "Never give up!",
+  "Today is your day!",
+  "Keep going!",
+  "Believe in yourself!"
+];
 
-
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  res.header('Access-Control-Allow-Methods', '*');
+  next();
+});
 
 app.use(express.json());
 
-
-app.get('/', (req, res) => {
-  res.send('✨ Daily Fuel server is up and running!');
+app.get('/quote', (req, res) => {
+  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  res.json({ quote: randomQuote });
 });
 
-
-app.get('/motivation', (req, res) => {
-  res.json({
-    message: "You’ve got this. One small step at a time 💪",
-    author: "ChatGPT"
-  });
-});
-
-app.post('/log',(req,res)=>{
-  const {message}=req.body;
-
-  if(!message)
-    return res.status(400).json({error:'message is required'})
-
-  const logentry={
-    message
-    ,timestamp:new Date().toISOString()
+app.post('/summary', (req, res) => {
+  const { motivation, goals, reflection, rating } = req.body;
+  const newSummary = {
+    id: Date.now(),
+    motivation: motivation,
+    goals: goals,
+    reflection: reflection,
+    rating: rating,
+    date: new Date().toDateString()
   };
+  summaries.push(newSummary);
+  res.json({ success: true, summary: newSummary });
+});
 
-  logs.push(logentry);
-  res.status(201).json({ success: true, log: logentry });
-})
-
-
-app.get('/log', (req, res) => {
-  res.json(logs);
+app.get('/summaries', (req, res) => {
+  res.json(summaries);
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ Server is listening on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
