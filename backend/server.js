@@ -72,6 +72,10 @@ app.get('/summaries', async (req, res) => {
     res.status(500).json({ error: 'Failed to get summaries' });
   }
 });
+app.get("/", (req, res) => {
+  res.send("Server is working!");
+});
+
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --env-file=.env server.js"
+    "start":"node server.js",
+    "dev": "nodemon --env-file=.env server.js"
   },
   "dependencies": {
     "dotenv": "^17.2.1",
