@@ -27,7 +27,7 @@ function formatDateWithTime(dateString) {
 
 async function getQuote() {
   try {
-    const response = await fetch('https://daily-motivation-0abm.onrender.com//quote');
+    const response = await fetch('https://daily-motivation-0abm.onrender.com/quote');
     const data = await response.json();
     dailyQuote = data.quote;
     showQuote();
@@ -50,7 +50,7 @@ async function saveSummary() {
       rating: rating
     };
     
-    const response = await fetch('https://daily-motivation-0abm.onrender.com//summary', {
+    const response = await fetch('https://daily-motivation-0abm.onrender.com/summary', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(summaryData)
@@ -66,7 +66,7 @@ async function saveSummary() {
 
 async function getSummaries() {
   try {
-    const response = await fetch('https://daily-motivation-0abm.onrender.com//summaries');
+    const response = await fetch('https://daily-motivation-0abm.onrender.com/summaries');
     const data = await response.json();
     console.log('All summaries:', data);
     showSummaries(data);
