@@ -1,16 +1,32 @@
-# Daily Fuel 🧠⚡️
+# 📓 Daily Fuel
 
-**A personal motivation and productivity logger.**
+**Daily Fuel** is a simple yet powerful productivity and motivation tracker. It lets you log your daily achievements, reflect on progress, and stay consistent. Built with a clean frontend and an Express backend, it's lightweight and easy to use.
 
-This is a full-stack web application to log daily progress, track productivity, and stay motivated through small wins.
+---
 
+## ✨ Features
 
-## 🔧 Features
+- Add, view, and manage daily logs of your tasks, reflections, or wins.
+- Simple and intuitive interface.
+- Responsive UI (Tailwind CSS).
+- Data persistence through Node.js + Express backend.
+- Easy deployment-ready setup.
 
-- ✅ Log daily tasks and motivational thoughts
-- 📅 View all logs with timestamps
-- 🌐 Frontend: HTML, CSS, JavaScript
-- 🚀 Backend: Node.js + Express
+---
 
+## 🛠 Tech Stack
 
+### Frontend
+- HTML
+- CSS (Tailwind)
+- JavaScript (Vanilla)
+
+### Backend
+- Node.js
+- Express.js
+
+### Deployment
+- Backend hosted on [Render](https://render.com)
+
+---
 
