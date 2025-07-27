@@ -26,7 +26,12 @@ let quotes = [
   "Never give up!",
   "Today is your day!",
   "Keep going!",
-  "Believe in yourself!"
+  "Believe in yourself!",
+  "Progress, not perfection.",
+  "Small steps daily lead to big changes yearly.",
+  "You're stronger than you think.",
+  "Every expert was once a beginner.",
+  "Your potential is endless."
 ];
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
