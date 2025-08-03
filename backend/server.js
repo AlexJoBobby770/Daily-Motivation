@@ -22,10 +22,11 @@ const summarySchema = new mongoose.Schema({
 });
 const Summary = mongoose.model('Summary', summarySchema);
 let quotes = [
-  "You can do it!",
-  "Never give up!",
+  "You need this !",
+  "You cant afford to loose",
   "Today is your day!",
   "Keep going!",
+  "Never be Average",
   "Believe in yourself!",
   "Progress, not perfection.",
   "Small steps daily lead to big changes yearly.",
