@@ -30,3 +30,6 @@
 
 ---
 
+
+goal: improve this by learning react and a deeper understanding of node and express
+
