@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Daily Fuel ⚡</title>
+  <link rel="stylesheet" href="login-style.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <h1>Daily Fuel ⚡</h1>
+      <p>Welcome back! Please login to continue.</p>
+      
+      <form id="loginForm">
+        <div class="input-group">
+          <input type="text" id="username" placeholder="Username" required>
+        </div>
+        
+        <div class="input-group">
+          <input type="password" id="password" placeholder="Password" required>
+        </div>
+        
+        <button type="submit" id="loginBtn">Login</button>
+        
+        <div id="message" class="message"></div>
+      </form>
+      
+      <div class="signup-link">
+        <p>Don't have an account? <button type="button" id="toggleSignup">Sign up here</button></p>
+      </div>
+    </div>
+  </div>
+  
+  <script src="login.js"></script>
+</body>
+</html>

@@ -1,30 +1,56 @@
+// Check if user is logged in
+function checkLogin() {
+  const currentUser = localStorage.getItem('currentUser');
+  if (!currentUser) {
+    window.location.href = 'login.html';
+    return false;
+  }
+  
+  // Update welcome message
+  document.getElementById('welcomeUser').textContent = `Welcome, ${currentUser}!`;
+  return true;
+}
 
+// Logout function
+document.getElementById('logoutBtn').addEventListener('click', function() {
+  if (confirm('Are you sure you want to logout?')) {
+    localStorage.removeItem('currentUser');
+    window.location.href = 'login.html';
+  }
+});
+
+// Form elements
 const dailyForm = document.getElementById('dailyForm');
 const motivationInput = document.getElementById('motivationInput');
 const summaryDisplay = document.getElementById('summaryDisplay');
 const goal1 = document.getElementById('goal1');
 const goal2 = document.getElementById('goal2');
-const reflectionInput = document.getElementById("reflectionInput");
-const ratingSelect = document.getElementById("rating");
+const reflectionInput = document.getElementById('reflectionInput');
+const ratingSelect = document.getElementById('rating');
+const previousDaysDiv = document.getElementById('previousDays');
 
+// Data variables
 let motivation = "";
 let goals = [];
 let reflection = "";
-let rating = 1;
+let rating = 3;
 let dailyQuote = "";
 
-function formatDateWithTime(dateString) {
+// Format date nicely
+function formatDate(dateString) {
   const date = new Date(dateString);
-  return date.toLocaleString('en-US', {
+  return date.toLocaleDateString('en-US', {
     weekday: 'short',
     month: 'short', 
     day: 'numeric',
+    year: 'numeric',
     hour: 'numeric',
     minute: '2-digit',
     hour12: true
   });
 }
 
+// Get daily quote
 async function getQuote() {
   try {
     const response = await fetch('https://daily-motivation-0abm.onrender.com/quote');
@@ -33,6 +59,8 @@ async function getQuote() {
     showQuote();
   } catch (error) {
     console.log('Error getting quote:', error);
+    dailyQuote = "Today is a new day full of possibilities!";
+    showQuote();
   }
 }
 
@@ -41,13 +69,16 @@ function showQuote() {
   quoteDiv.innerHTML = `"${dailyQuote}"`;
 }
 
+// Save summary to server
 async function saveSummary() {
   try {
+    const currentUser = localStorage.getItem('currentUser');
     const summaryData = {
       motivation: motivation,
       goals: goals,
       reflection: reflection,
-      rating: rating
+      rating: rating,
+      username: currentUser
     };
     
     const response = await fetch('https://daily-motivation-0abm.onrender.com/summary', {
@@ -55,132 +86,137 @@ async function saveSummary() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(summaryData)
     });
+    
     const data = await response.json();
     console.log('Summary saved:', data);
     alert('✅ Daily summary saved successfully!');
+    
+    // Reload previous summaries
+    getSummaries();
   } catch (error) {
     console.log('Error saving summary:', error);
     alert('❌ Error saving summary. Please try again.');
   }
 }
 
+// Get user's summaries
 async function getSummaries() {
   try {
-    const response = await fetch('https://daily-motivation-0abm.onrender.com/summaries');
+    const currentUser = localStorage.getItem('currentUser');
+    const response = await fetch(`https://daily-motivation-0abm.onrender.com/summaries/${currentUser}`);
     const data = await response.json();
-    console.log('All summaries:', data);
-    showSummaries(data);
+    console.log('User summaries:', data);
+    showPreviousDays(data);
   } catch (error) {
     console.log('Error getting summaries:', error);
+    // Fallback to general endpoint
+    try {
+      const response = await fetch('https://daily-motivation-0abm.onrender.com/summaries');
+      const data = await response.json();
+      showPreviousDays(data);
+    } catch (fallbackError) {
+      console.log('Fallback also failed:', fallbackError);
+    }
   }
 }
 
-function showSummaries(summaries) {
-  const summaryDiv = document.createElement('div');
-  summaryDiv.innerHTML = '<h3 class="text-xl font-bold mt-8 mb-4">📚 Your Previous Days:</h3>';
+// Display previous days
+function showPreviousDays(summaries) {
+  if (summaries.length === 0) {
+    previousDaysDiv.innerHTML = '<p style="color: #666; text-align: center;">No previous entries yet.</p>';
+    return;
+  }
   
-  summaries.forEach(s => {
-    summaryDiv.innerHTML += `
-      <div class="bg-gray-400 rounded-lg p-4 mb-4">
-        <h4 class="text-lg font-semibold text-yellow-400 mb-2">📅 ${formatDateWithTime(s.date)}</h4>
-        <p><strong>💪 Motivation:</strong> ${s.motivation || 'None'}</p>
-        <p><strong>🎯 Goals:</strong> ${s.goals.map(g => g.text).join(', ') || 'None'}</p>
-        <p><strong>🤔 Reflection:</strong> ${s.reflection || 'None'}</p>
-        <p><strong>⭐ Rating:</strong> ${'⭐'.repeat(s.rating)}</p>
+  previousDaysDiv.innerHTML = '';
+  
+  summaries.forEach(summary => {
+    const dayDiv = document.createElement('div');
+    dayDiv.className = 'previous-day';
+    
+    dayDiv.innerHTML = `
+      <div class="previous-day-header">
+        📅 ${formatDate(summary.date)}
+      </div>
+      <div class="previous-day-content">
+        <div class="previous-day-item">
+          <div class="previous-day-label">💡 Inspiration:</div>
+          <div class="previous-day-text">${summary.motivation || 'None'}</div>
+        </div>
+        <div class="previous-day-item">
+          <div class="previous-day-label">🎯 Goals:</div>
+          <div class="previous-day-text">${summary.goals.map(g => g.text).join(', ') || 'None'}</div>
+        </div>
+        <div class="previous-day-item">
+          <div class="previous-day-label">🤔 Reflection:</div>
+          <div class="previous-day-text">${summary.reflection || 'None'}</div>
+        </div>
+        <div class="previous-day-item">
+          <div class="previous-day-label">⭐ Rating:</div>
+          <div class="previous-day-text">${'⭐'.repeat(summary.rating)}</div>
+        </div>
       </div>
     `;
+    
+    previousDaysDiv.appendChild(dayDiv);
   });
-  
-  document.body.appendChild(summaryDiv);
 }
 
+// Update summary display
 function updateSummary() {
   summaryDisplay.innerHTML = `
-    <div class="space-y-6">
-      <div>
-        <h3 class="text-lg font-semibold text-slate-600 mb-2 accent-font flex items-center">
-          <span class="mr-2"></span> Inspiration
-        </h3>
-        <p class="bg-white bg-opacity-60 p-4 rounded-2xl text-slate-700 border border-slate-200">${motivation || "No inspiration noted yet..."}</p>
+    <div class="summary-section">
+      <div class="summary-title">💡 Inspiration</div>
+      <div class="summary-content">${motivation || "No inspiration noted yet..."}</div>
+    </div>
+    
+    <div class="summary-section">
+      <div class="summary-title">🎯 Goals</div>
+      <div class="summary-content">
+        ${goals.length > 0 
+          ? `<ul class="summary-goals">
+              ${goals.map(g => `<li>• ${g.text} ${g.done ? '✅' : '⏳'}</li>`).join('')}
+            </ul>` 
+          : 'No goals set yet...'
+        }
       </div>
-      
-      <div>
-        <h3 class="text-lg font-semibold text-slate-600 mb-2 accent-font flex items-center">
-          <span class="mr-2">🎨</span> Creative Goals
-        </h3>
-        <ul class="bg-white bg-opacity-60 p-4 rounded-2xl border border-slate-200" style="list-style: none;">
-          ${goals.length > 0 
-            ? goals.map(g => `<li class="py-2 text-slate-700 flex items-center">
-                <span class="mr-2">•</span> 
-                <span class="flex-1">${g.text}</span> 
-                <span class="ml-2">${g.done ? '✅' : '⏳'}</span>
-              </li>`).join('') 
-            : '<li class="py-2 text-slate-500">No goals set yet...</li>'
-          }
-        </ul>
-      </div>
-      
-      <div>
-        <h3 class="text-lg font-semibold text-slate-600 mb-2 accent-font flex items-center">
-          <span class="mr-2">🌅</span> Reflection
-        </h3>
-        <p class="bg-white bg-opacity-60 p-4 rounded-2xl text-slate-700 border border-slate-200">${reflection || "No reflection written yet..."}</p>
-      </div>
-      
-      <div>
-        <h3 class="text-lg font-semibold text-slate-600 mb-2 accent-font flex items-center">
-          <span class="mr-2">✨</span> Day Rating
-        </h3>
-        <p class="bg-white bg-opacity-60 p-4 rounded-2xl text-3xl border border-slate-200">${"⭐".repeat(rating)}</p>
-      </div>
+    </div>
+    
+    <div class="summary-section">
+      <div class="summary-title">🤔 Reflection</div>
+      <div class="summary-content">${reflection || "No reflection written yet..."}</div>
+    </div>
+    
+    <div class="summary-section">
+      <div class="summary-title">⭐ Day Rating</div>
+      <div class="summary-content summary-rating">${"⭐".repeat(rating)}</div>
     </div>
   `;
 }
 
-dailyForm.addEventListener('submit', async (e) => {
-  e.preventDefault(); 
- 
+// Form submission
+dailyForm.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  // Get form values
   motivation = motivationInput.value.trim();
   goals = [
     { text: goal1.value.trim(), done: false },
     { text: goal2.value.trim(), done: false }
-  ].filter(goal => goal.text !== ""); 
+  ].filter(goal => goal.text !== "");
   
   reflection = reflectionInput.value.trim();
   rating = parseInt(ratingSelect.value);
   
+  // Update display
   updateSummary();
-
-  await saveSummary();
   
- 
+  // Save to server
+  await saveSummary();
 });
+
+// Input focus animations
 document.addEventListener('DOMContentLoaded', function() {
-  // Inputs focus animation
   const inputs = document.querySelectorAll('input, textarea, select');
   inputs.forEach(input => {
     input.addEventListener('focus', function() {
-      this.style.transform = 'scale(1.02)';
-    });
-    input.addEventListener('blur', function() {
-      this.style.transform = 'scale(1)';
-    });
-  });
-  const submitBtn = document.getElementById('submitAllBtn');
-  submitBtn.addEventListener('click', function() {
-    this.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-      this.style.transform = 'scale(1.05)';
-      setTimeout(() => {
-        this.style.transform = 'scale(1)';
-      }, 100);
-    }, 100);
-  });
-});
-
-
-window.onload = function() {
-  getQuote();
-  getSummaries();
-  updateSummary();
-};
+      this.style.transform =

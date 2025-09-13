@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daily Fuel ⚡</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="gradient-bg">
-
-  <form id="loginForm" class="form-container">
-    <input type="text" id="username" placeholder="Username" class="input-field">
-    <input type="password" id="password" placeholder="Password" class="input-field">
-    <button type="submit" id="loginBtn" class="btn">Login</button>
-    <p id="loginError" class="msg error"></p>
-    <p id="loginSuccess" class="msg success"></p>  
-    <p id="loginLoading" class="msg loading"></p>
-  </form>
+  <!-- Header with user info and logout -->
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">Daily Fuel ⚡</h1>
+      <div class="user-section">
+        <span id="welcomeUser">Welcome!</span>
+        <button id="logoutBtn" class="logout-btn">Logout</button>
+      </div>
+    </div>
+  </header>
 
   <!-- BACKGROUND DECORATIONS -->
   <div class="background-blobs">
@@ -25,10 +27,8 @@
   </div>
 
   <!-- MAIN CONTENT -->
-  <div class="main-container" style="display: none;">
-
+  <div class="main-container">
     <div class="text-center">
-      <h1 class="title bounce-in">Daily Fuel</h1>
       <div id="DailyQuote" class="quote-box"></div>
     </div>
 
@@ -37,7 +37,7 @@
 
       <!-- Inspiration -->
       <section class="card hover-lift">
-        <h2 class="section-title">What Inspired You Today?</h2>
+        <h2 class="section-title">💡 What Inspired You Today?</h2>
         <input 
           type="text" 
           id="motivationInput" 
@@ -48,14 +48,14 @@
 
       <!-- Goals -->
       <section class="card hover-lift">
-        <h2 class="section-title">Today's Creative Goals</h2>
-        <input type="text" id="goal1" placeholder="🌿 Goal #1" class="input-field">
-        <input type="text" id="goal2" placeholder="🌙 Goal #2" class="input-field">
+        <h2 class="section-title">🎯 Today's Goals</h2>
+        <input type="text" id="goal1" placeholder="Goal #1" class="input-field">
+        <input type="text" id="goal2" placeholder="Goal #2" class="input-field">
       </section>
 
       <!-- Reflection -->
       <section class="card hover-lift">
-        <h2 class="section-title">Reflect & Rate</h2>
+        <h2 class="section-title">🤔 Reflect & Rate Your Day</h2>
         <textarea 
           id="reflectionInput" 
           placeholder="How did today feel? What did you learn?"
@@ -82,8 +82,14 @@
 
     <!-- Summary -->
     <section class="card">
-      <h2 class="section-title">Today's Gentle Summary</h2>
+      <h2 class="section-title">📋 Today's Summary</h2>
       <div id="summaryDisplay" class="summary-box"></div>
+    </section>
+
+    <!-- Previous Days -->
+    <section class="card" id="previousDaysSection">
+      <h2 class="section-title">📚 Your Previous Days</h2>
+      <div id="previousDays"></div>
     </section>
   </div>
 
