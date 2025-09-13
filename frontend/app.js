@@ -155,6 +155,29 @@ dailyForm.addEventListener('submit', async (e) => {
   
  
 });
+document.addEventListener('DOMContentLoaded', function() {
+  // Inputs focus animation
+  const inputs = document.querySelectorAll('input, textarea, select');
+  inputs.forEach(input => {
+    input.addEventListener('focus', function() {
+      this.style.transform = 'scale(1.02)';
+    });
+    input.addEventListener('blur', function() {
+      this.style.transform = 'scale(1)';
+    });
+  });
+  const submitBtn = document.getElementById('submitAllBtn');
+  submitBtn.addEventListener('click', function() {
+    this.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      this.style.transform = 'scale(1.05)';
+      setTimeout(() => {
+        this.style.transform = 'scale(1)';
+      }, 100);
+    }, 100);
+  });
+});
+
 
 window.onload = function() {
   getQuote();

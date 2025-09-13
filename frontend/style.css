@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=Poppins:wght@300;400;700&family=Nunito:wght@300;400;700;800&display=swap');
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: #444;
+  margin: 0;
+  padding: 0;
+}
+
+.gradient-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 20%, #cbd5e1 40%, #ddd6fe 60%, #e0e7ff 80%, #f1f5f9 100%);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background blobs */
+.background-blobs .blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  animation: pulse 6s infinite ease-in-out alternate;
+}
+
+.blob.pink {
+  top: -100px; right: -100px; width: 200px; height: 200px; background: #f9a8d4;
+}
+.blob.blue {
+  bottom: -100px; left: -100px; width: 200px; height: 200px; background: #93c5fd;
+}
+.blob.yellow {
+  top: 40%; left: 40%; width: 300px; height: 300px; background: #fef08a; opacity: 0.2;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
+}
+
+/* Main container */
+.main-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Title & Quote */
+.title {
+  font-family: 'Comfortaa', cursive;
+  font-size: 3.5rem;
+  font-weight: 900;
+  background: linear-gradient(to right, #facc15, #ec4899, #22d3ee);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.bounce-in {
+  animation: bounceIn 0.6s ease-out;
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.quote-box {
+  font-size: 1.2rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  text-align: center;
+}
+
+/* Forms & Inputs */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.input-field, .textarea-field, .rating-select {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid #f9a8d4;
+  background: rgba(255,255,255,0.5);
+  font-size: 1rem;
+  transition: 0.2s;
+}
+
+.input-field:focus, .textarea-field:focus, .rating-select:focus {
+  border-color: #f472b6;
+  box-shadow: 0 0 0 3px rgba(244,114,182,0.2);
+  outline: none;
+}
+
+/* Buttons */
+.btn {
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  background: linear-gradient(to right, #fbcfe8, #f9a8d4, #c4b5fd);
+  color: #444;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(249,168,212,0.3);
+}
+
+/* Cards */
+.card {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(20px);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 8px 32px rgba(148, 163, 184, 0.15);
+}
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(249,168,212,0.2);
+}
+
+/* Section titles */
+.section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* Messages */
+.msg {
+  font-size: 0.9rem;
+}
+.msg.error { color: red; }
+.msg.success { color: green; }
+.msg.loading { color: goldenrod; }
+
+/* Rating */
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rating-select {
+  font-size: 1.2rem;
+}
+
+/* Summary */
+.summary-box {
+  margin-top: 1rem;
+}
