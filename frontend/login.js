@@ -12,7 +12,6 @@ const validUsers = [
   const message = document.getElementById('message');
   const toggleSignupBtn = document.getElementById('toggleSignup');
   
-  // Check if user is already logged in
   window.onload = function() {
     const loggedInUser = localStorage.getItem('currentUser');
     if (loggedInUser) {
@@ -44,12 +43,11 @@ const validUsers = [
       showMessage('Please fill in both fields', 'error');
       return;
     }
-    
-    // Check if user exists
+ 
     const user = validUsers.find(u => u.username === username && u.password === password);
     
     if (user) {
-      // Login successful
+     
       localStorage.setItem('currentUser', username);
       showMessage('Login successful! Redirecting...', 'success');
       
@@ -61,11 +59,9 @@ const validUsers = [
     }
   });
   
-  // Clear message when user starts typing
   usernameInput.addEventListener('input', clearMessage);
   passwordInput.addEventListener('input', clearMessage);
   
-  // Simple signup toggle (you can expand this later)
   toggleSignupBtn.addEventListener('click', function() {
     showMessage('Signup feature coming soon! Use demo/demo to login.', 'error');
   });
